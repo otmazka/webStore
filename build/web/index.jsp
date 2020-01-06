@@ -16,7 +16,6 @@
         <H1>Добро пожаловать в магазин!</H1>
         <p>${info}</p>
         <a href="showLogin">Вход</a><br>
-        <a href="newBuyer">Зарегистрироваться</a><br>
         <a href="newProduct">Добавить телефон</a><br>
         <a href="listProducts">Список телефонов</a><br>
         <a href="newBuyer">Добавить покупателя</a><br>

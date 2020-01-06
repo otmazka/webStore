@@ -32,6 +32,10 @@ public class Buyer implements Serializable{
         this.email = email;
     }
 
+    public Buyer(String name, String lastname, String email, int parseInt) {
+        //To change body of generated methods, choose Tools | Templates.
+    }
+
     public int getId() {
         return id;
     }

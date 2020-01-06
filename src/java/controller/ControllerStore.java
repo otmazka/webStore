@@ -5,7 +5,6 @@
  */
 package controller;
 
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import entity.Buyer;
 import entity.History;
 import entity.Product;
@@ -64,7 +63,8 @@ public class ControllerStore extends HttpServlet {
                 String title = request.getParameter("title");
                 String model = request.getParameter("model");
                 String quantity = request.getParameter("quantity");
-                Product product = new Product(title, model, new Integer(quantity));
+                String price = request.getParameter("price");
+                Product product = new Product(title, model, Integer.parseInt(price), Integer.parseInt(quantity));
                 productFacade.create(product);
                 request.setAttribute("info", "Новый телефон добавлен");
                 request.getRequestDispatcher("/index.jsp")
@@ -87,7 +87,8 @@ public class ControllerStore extends HttpServlet {
                 String name = request.getParameter("name");
                 String lastname = request.getParameter("lastname");
                 String email = request.getParameter("email");
-                Buyer buyer = new Buyer(name, lastname, email);
+                String money = request.getParameter("money");
+                Buyer buyer = new Buyer(name, lastname, email, Integer.parseInt(money));
                 buyerFacade.create(buyer);
                 request.setAttribute("info", "Покупатель создан");
                 request.getRequestDispatcher("/index.jsp")

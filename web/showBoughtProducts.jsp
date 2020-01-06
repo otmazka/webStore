@@ -20,7 +20,7 @@
         <select name="productId">
             <c:forEach var="product" items="${listProducts}" varStatus="status">
                 <option value="${product.id}">
-                    ${status.index+1}. ${product.title}. ${product.model}> </option>
+                    ${status.index+1}. ${product.title}. ${product.model}. ${product.price} > </option>
                 </c:forEach>
         </select>
         
@@ -28,7 +28,7 @@
          <select name="buyerId">
         <c:forEach var="buyer" items="${listBuyers}" varStatus="status">
         <option value="${reader.id}">
-            ${status.index+1}. ${buyer.name}. ${buyer.lastname}. ${buyer.email}> 
+            ${status.index+1}. ${buyer.name}. ${buyer.lastname}. ${buyer.email}. ${buyer.money}> 
         </option>
     </c:forEach>
          </select>

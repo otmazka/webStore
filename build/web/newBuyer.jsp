@@ -14,11 +14,10 @@
     <body>
         <h1>Добавить покупателя</h1>
         <form action="addBuyer" method="POST">
-            Логин: <input type="text" name="login"><br>
-            Пароль: <input type="text" name="password"><br>
             Имя: <input type="text" name="name"><br>
             фамилия: <input type="text" name="lastname"><br>
             Эмаил: <input type="text" name="email"><br>
+            Деньги: <input type="text" name="money"><br>
             <input type="submit" value="Добавить покупателя"><br>
         </form>
     </body>

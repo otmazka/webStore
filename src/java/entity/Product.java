@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-
 public class Product implements Serializable {
 //private static final long serialVersionUID = 1L;
     @Id
@@ -29,7 +28,11 @@ public class Product implements Serializable {
         this.model = model;
         this.price = price;
         this.quantity = quantity;
-        this.count = count;
+        this.count = quantity;
+    }
+
+    public Product(String title, String model, int parseInt, int parseInt0) {
+        return; //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

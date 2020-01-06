@@ -15,7 +15,7 @@
         <h1>Список покупателей</h1>
          <ul>
         <c:forEach var="buyer" items="${listBuyers}"> 
-            <li>${buyer.name}. ${buyer.lastname}. ${buyer.email}</li>
+            <li>${buyer.name}. ${buyer.lastname}. ${buyer.email}. ${buyer.money}</li>
             </c:forEach>
 
     </ul>
