@@ -20,6 +20,7 @@
         <a href="listProducts">Список телефонов</a><br>
         <a href="newBuyer">Добавить покупателя</a><br>
         <a href="listBuyers">Список покупателей</a><br>
-        <a href="showBoughtProducts">Купить телефон</a><br>
+        <a href="showBuyProducts">Купить телефон</a><br>
+        <a href="showBoughtProducts">Список проданных телефонов</a><br>
     </body>
 </html>

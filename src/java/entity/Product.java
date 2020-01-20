@@ -22,67 +22,12 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(Long id, String title, String model, int price, int quantity, int count) {
-        this.id = id;
+    public Product(String title, String model, int price, int quantity) {
         this.title = title;
         this.model = model;
         this.price = price;
         this.quantity = quantity;
         this.count = quantity;
-    }
-
-    public Product(String title, String model, int parseInt, int parseInt0) {
-        return; //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" + "title=" + title + ", model=" + model + ", price=" + price + ", quantity=" + quantity + ", count=" + count + '}';
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.id);
-        hash = 53 * hash + Objects.hashCode(this.title);
-        hash = 53 * hash + Objects.hashCode(this.model);
-        hash = 53 * hash + this.price;
-        hash = 53 * hash + this.quantity;
-        hash = 53 * hash + this.count;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Product other = (Product) obj;
-        if (this.price != other.price) {
-            return false;
-        }
-        if (this.quantity != other.quantity) {
-            return false;
-        }
-        if (this.count != other.count) {
-            return false;
-        }
-        if (!Objects.equals(this.title, other.title)) {
-            return false;
-        }
-        if (!Objects.equals(this.model, other.model)) {
-            return false;
-        }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
     }
 
     public Long getId() {
@@ -132,4 +77,56 @@ public class Product implements Serializable {
     public void setCount(int count) {
         this.count = count;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" + "id=" + id + ", title=" + title + ", model=" + model + ", price=" + price + ", quantity=" + quantity + ", count=" + count + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.id);
+        hash = 67 * hash + Objects.hashCode(this.title);
+        hash = 67 * hash + Objects.hashCode(this.model);
+        hash = 67 * hash + this.price;
+        hash = 67 * hash + this.quantity;
+        hash = 67 * hash + this.count;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Product other = (Product) obj;
+        if (this.price != other.price) {
+            return false;
+        }
+        if (this.quantity != other.quantity) {
+            return false;
+        }
+        if (this.count != other.count) {
+            return false;
+        }
+        if (!Objects.equals(this.title, other.title)) {
+            return false;
+        }
+        if (!Objects.equals(this.model, other.model)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+
+   
 }

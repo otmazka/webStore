@@ -21,13 +21,13 @@ import javax.servlet.http.HttpServletResponse;
 import session.BuyerFacade;
 import session.HistoryFacade;
 import session.ProductFacade;
+import session.UserFacade;
 
 /**
  *
  * @author Sveta
  */
 @WebServlet(name = "ControllerStore", urlPatterns = {
-    "/ControllerStore",
     "/login",
     "/showLogin",
     "/newProduct",
@@ -36,17 +36,21 @@ import session.ProductFacade;
     "/newBuyer",
     "/addBuyer",
     "/listBuyers",
-    "/showBoughtProducts",
+    "/showBuyProducts",
     "/buyProduct",
-   })
+    "/showBoughtProducts",
+    "/boughtProduct"
+})
 public class ControllerStore extends HttpServlet {
 
-     @EJB
+    @EJB
     ProductFacade productFacade;
     @EJB
     BuyerFacade buyerFacade;
     @EJB
     HistoryFacade historyFacade;
+    @EJB
+    UserFacade userFacade;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -62,8 +66,8 @@ public class ControllerStore extends HttpServlet {
             case "/addProduct":
                 String title = request.getParameter("title");
                 String model = request.getParameter("model");
-                String quantity = request.getParameter("quantity");
                 String price = request.getParameter("price");
+                String quantity = request.getParameter("quantity");
                 Product product = new Product(title, model, Integer.parseInt(price), Integer.parseInt(quantity));
                 productFacade.create(product);
                 request.setAttribute("info", "Новый телефон добавлен");
@@ -88,7 +92,7 @@ public class ControllerStore extends HttpServlet {
                 String lastname = request.getParameter("lastname");
                 String email = request.getParameter("email");
                 String money = request.getParameter("money");
-                Buyer buyer = new Buyer(name, lastname, email, Integer.parseInt(money));
+                Buyer buyer = new Buyer(name, lastname, Integer.parseInt(money), email);// dolznq stojat na svojom meste, kak v kostruktore
                 buyerFacade.create(buyer);
                 request.setAttribute("info", "Покупатель создан");
                 request.getRequestDispatcher("/index.jsp")
@@ -96,7 +100,7 @@ public class ControllerStore extends HttpServlet {
                 break;
 
             case "/listBuyers":
-                List<Buyer>listBuyers = buyerFacade.findAll();//vqvodim spisok читателей
+                List<Buyer> listBuyers = buyerFacade.findAll();//vqvodim spisok читателей
                 request.setAttribute("listBuyers", listBuyers);
                 request.getRequestDispatcher("/listBuyers.jsp")
                         .forward(request, response);
@@ -118,12 +122,12 @@ public class ControllerStore extends HttpServlet {
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
                 break;
 
-            case "/showBoughtProducts":
+            case "/showBuyProducts":
                 listBuyers = buyerFacade.findAll();
                 listProducts = productFacade.findAll();
                 request.setAttribute("listProducts", listProducts);
                 request.setAttribute("listBuyers", listBuyers);
-                request.getRequestDispatcher("/showBoughtProducts.jsp")
+                request.getRequestDispatcher("/showBuyProducts.jsp")
                         .forward(request, response);
                 break;
 
@@ -132,35 +136,68 @@ public class ControllerStore extends HttpServlet {
                 String buyerId = request.getParameter("buyerId");
                 product = productFacade.find(Long.parseLong(productId));
                 buyer = buyerFacade.find(Long.parseLong(buyerId));
-                History history = new History();
-                history.setProduct(product);
-                history.setBuyer(buyer);
-                history.setTakeOn(new Date());
-                historyFacade.create(history);
-                request.setAttribute("info", "Телефон \"" + product.getTitle() + "\"куплен клиентом: " + buyer.getName() + " " + buyer.getLastname());
+                if (product.getCount() > 0) {
+                    if (buyer.getMoney() - product.getPrice() >= 0) {
+                        product.setCount(product.getCount() - 1);
+                        productFacade.edit(product);
+                        buyer.setMoney(buyer.getMoney() - product.getPrice());
+                        buyerFacade.edit(buyer);
+                        History history = new History();
+                        history.setProduct(product);
+                        history.setBuyer(buyer);
+                        history.setTakeOn(new Date());
+                        historyFacade.create(history);
+                        request.setAttribute("info", "Телефон \"" + product.getTitle() + "\"куплен клиентом: " + buyer.getName() + " " + buyer.getLastname());
+                    } else {
+                        request.setAttribute("info", "Недостаточно средств");
+                    }
+
+                } else {
+                    request.setAttribute("info", "Все телефоны проданы");
+                }
                 request.getRequestDispatcher("/index.jsp")
                         .forward(request, response);
+                break;
+
+            case "/showBoughtProducts":
+                List<History> listHistories = historyFacade.findBuyProduct();
+                request.setAttribute("listHistories", listHistories);
+                request.getRequestDispatcher("/showBoughtProducts.jsp")
+                        .forward(request, response);
+                break;
+                
+                case "/boughtProduct":
+                String historyId = request.getParameter("historyId");
+                History history = historyFacade.find(Long.parseLong(historyId));
+                history.setTakeOn(new Date());
+                historyFacade.edit(history);
+                request.setAttribute("info",
+                            "Телефон \""
+                            + history.getProduct().getTitle()
+                            + " " + history.getProduct().getModel()
+                            + "\" продан покупателю: "
+                            + history.getBuyer().getName()
+                            + " " + history.getBuyer().getLastname()
+                );
+                request.getRequestDispatcher("/index.jsp")
+                            .forward(request, response);
                 break;
 
         }
     }
 
-   
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-   
     @Override
     public String getServletInfo() {
         return "Short description";

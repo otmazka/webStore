@@ -1,6 +1,6 @@
 <%-- 
-    Document   : showTakeOnBook
-    Created on : Nov 25, 2019, 7:06:06 PM
+    Document   : listHistories
+    Created on : Jan 6, 2020, 6:49:59 PM
     Author     : User
 --%>
 
@@ -10,29 +10,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Покупка телефона</title>
+        <title>Список проданных телефонов</title>
     </head>
-    
     <body>
-        <p>${info}</p>
-        <form action="BuyProduct" method="POST">
-        <h2>Список телефонов</h2>
-        <select name="productId">
-            <c:forEach var="product" items="${listProducts}" varStatus="status">
-                <option value="${product.id}">
-                    ${status.index+1}. ${product.title}. ${product.model}. ${product.price} > </option>
-                </c:forEach>
-        </select>
-        
-        <h2>Список покупателей</h2>
-         <select name="buyerId">
-        <c:forEach var="buyer" items="${listBuyers}" varStatus="status">
-        <option value="${reader.id}">
-            ${status.index+1}. ${buyer.name}. ${buyer.lastname}. ${buyer.email}. ${buyer.money}> 
-        </option>
-    </c:forEach>
-         </select>
-    <input type="submit" value="Купить телефон">
-        </form>
-</body>
+        <h1>Список проданных телефонов</h1>
+        <ul>
+        <c:forEach var="history" items="${listHistories}"> 
+            <li>${history.product.title}. ${history.product.model}. ${history.product.price}. ${history.product.quantity}. ${history.product.count}</li>
+            </c:forEach>
+
+    </ul>
+    </body>
 </html>

@@ -16,7 +16,7 @@
     <h1>Список телефонов</h1>
     <ul>
         <c:forEach var="product" items="${listProducts}"> 
-            <li>${product.title}. ${product.model}. ${product.quantity}. ${product.price}</li>
+            <li>${product.title}. ${product.model}. ${product.price}. ${product.quantity}. ${product.count}</li>
             </c:forEach>
 
     </ul>

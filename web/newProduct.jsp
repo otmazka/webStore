@@ -14,10 +14,11 @@
     <body>
         <h1>Добавить новый телефон</h1>
         <form action="addProduct" method="POST">
-            Бренд: <input type="text" name="title"><br><br>
+            Название: <input type="text" name="title"><br><br>
             Модель: <input type="text" name="model"><br><br>
-            Количество экземпляров: <input type="text" name="quantity"><br><br>
             Цена: <input type="text" name="price"><br><br>
+            Количество экземпляров: <input type="text" name="quantity"><br><br>
+            
             <input type="submit" value="Добавить телефон"><br><br>
         </form>
     </body>

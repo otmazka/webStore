@@ -14,9 +14,9 @@ public class Buyer implements Serializable{
    // private static final long serialVersionUID = 1L;
      @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private int id;
+   private Long id;
    private String name;
-   private String Lastname;
+   private String lastname;
    private int money;
    @Column(unique = true)
    private String email;
@@ -24,23 +24,18 @@ public class Buyer implements Serializable{
     public Buyer() {
     }
 
-    public Buyer(int id, String name, String Lastname, int money, String email) {
-        this.id = id;
+    public Buyer(String name, String lastname, int money, String email) {
         this.name = name;
-        this.Lastname = Lastname;
+        this.lastname = lastname;
         this.money = money;
         this.email = email;
     }
 
-    public Buyer(String name, String lastname, String email, int parseInt) {
-        //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -53,11 +48,11 @@ public class Buyer implements Serializable{
     }
 
     public String getLastname() {
-        return Lastname;
+        return lastname;
     }
 
-    public void setLastname(String Lastname) {
-        this.Lastname = Lastname;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public int getMoney() {
@@ -77,18 +72,13 @@ public class Buyer implements Serializable{
     }
 
     @Override
-    public String toString() {
-        return "Buyer{" + "id=" + id + ", name=" + name + ", Lastname=" + Lastname + ", money=" + money + ", email=" + email + '}';
-    }
-
-    @Override
     public int hashCode() {
         int hash = 7;
-        hash = 71 * hash + this.id;
-        hash = 71 * hash + Objects.hashCode(this.name);
-        hash = 71 * hash + Objects.hashCode(this.Lastname);
-        hash = 71 * hash + this.money;
-        hash = 71 * hash + Objects.hashCode(this.email);
+        hash = 47 * hash + Objects.hashCode(this.id);
+        hash = 47 * hash + Objects.hashCode(this.name);
+        hash = 47 * hash + Objects.hashCode(this.lastname);
+        hash = 47 * hash + this.money;
+        hash = 47 * hash + Objects.hashCode(this.email);
         return hash;
     }
 
@@ -104,23 +94,31 @@ public class Buyer implements Serializable{
             return false;
         }
         final Buyer other = (Buyer) obj;
-        if (this.id != other.id) {
-            return false;
-        }
         if (this.money != other.money) {
             return false;
         }
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (!Objects.equals(this.Lastname, other.Lastname)) {
+        if (!Objects.equals(this.lastname, other.lastname)) {
             return false;
         }
         if (!Objects.equals(this.email, other.email)) {
             return false;
         }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Buyer{" + "id=" + id + ", name=" + name + ", lastname=" + lastname + ", money=" + money + ", email=" + email + '}';
+    }
+
+   
+    
    
 }
     
